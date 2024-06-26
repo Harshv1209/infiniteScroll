@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react"
+import ImageGallery from "./ImageGallery"
+import "./App.css"
 
-function App() {
+const App = () => {
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    // Simulate loading delay
+    const timeout = setTimeout(() => {
+      setLoading(false)
+    }, 2000) // Adjust the delay time as needed
+
+    return () => clearTimeout(timeout)
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {loading ? (
+        <div className="loading-title">
+          <h1>Loading...</h1>
+        </div>
+      ) : (
+        <ImageGallery />
+      )}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
